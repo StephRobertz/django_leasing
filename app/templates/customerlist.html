@@ -2,7 +2,87 @@
 
 {% block content %}
 
-<h1>Customers</h1>
+<br />
+<div id="add-div"></div>
+<br />
 
+<h1 style="color: darkviolet">Customers</h1>
+
+<button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Add new customer</button>
+
+
+        <!-- <form method="post" action="/search-customers/">
+
+            {%csrf_token %}
+            <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+            <input type="submit" value="Search" class="btn btn-success btn-sm" name="">
+        </form> -->
+
+{% for cu in customers %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{cu.customername}}</h4>
+        <h5 class="card-text">Car: {{cu.car.carname}}</h5>
+        <p class="card-text">adress: {{cu.adress}} | phone: {{cu.phone}} | mail: {{cu.mail}} </p>
+        
+
+        <a href="/edit-customer-get/{{cu.id}}/" class="btn btn-primary">Edit</a>
+        <a href="/confirm-delete-cust/{{cu.id}}/" class="btn btn-danger">Delete</a>
+        <a href="/car-by-customer/{{cu.id}}/" class="btn btn-secondary">{{cu.customername}} ´s Cars</a>
+    </div>
+</div>
+
+{% empty %}
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <p class="card-text">No products found in the database.</p>
+    </div>
+</div>
+
+{%endfor%}
+
+
+<script>
+
+    let x = `
+    <h2 style="color: lightblue">Please fill in form</h2>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-customer/">
+    
+                {% csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="customer´s name" name="customername">
+                <input class="card-text" type="text" placeholder="adress" name="adress">
+                <input class="card-text" type="text" placeholder="phone" name="phone">
+                <input class="card-text" type="text" placeholder="mail" name="mail">
+                <br/>
+
+                <label for="car">Car</label>
+                <select id="car" name="car">
+                {% for c in cars %}
+                  <option value="{{c.id}}">{{c.carname}}</option>
+                  {% endfor %}
+                </select>
+
+                <br/>
+
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+            </form>
+        </div>
+    </div>`
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = x
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
 
 {% endblock %}

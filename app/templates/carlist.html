@@ -2,7 +2,78 @@
 
 {% block content %}
 
-<h1>Cars</h1>
+<br />
+<div id="add-div"></div>
+<br />
 
+<h1 style="color: darkviolet">Cars</h1>
+
+<button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Add new car</button>
+
+
+        <form method="post" action="/search-cars/">
+
+            {%csrf_token %}
+            <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+            <input type="submit" value="Search" class="btn btn-success btn-sm" name="">
+        </form>
+
+
+{% for c in cars %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{c.carname}}</h4>
+        <p class="card-text">model: {{c.model}} | year: {{c.year}} | gear: {{c.gear}} </p>
+        <p class="card-text" style="color: goldenrod;">Price: {{c.price}} </p>
+
+        <a href="/edit-car-get/{{c.id}}/" class="btn btn-primary">Edit</a>
+        <a href="/confirm-delete-car/{{c.id}}/" class="btn btn-danger">Delete</a>
+        
+        <!-- <a href="/products-by-supplier/{{c.id}}/" class="btn btn-secondary">{{s.companyname}} Products</a> -->
+    </div>
+</div>
+
+{% empty %}
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <p class="card-text">No products found in the database.</p>
+    </div>
+</div>
+
+{%endfor%}
+
+<script>
+
+    let x = `
+    <h2 style="color: lightblue">Please fill in form</h2>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-car/">
+    
+                {% csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="car´s name" name="carname">
+                <input class="card-text" type="text" placeholder="model" name="model">
+                <input class="card-text" type="text" placeholder="year" name="year">
+                <input class="card-text" type="text" placeholder="gear" name="gear">
+                <input class="card-text" type="text" placeholder="price" name="price">
+                <br/>
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+            </form>
+        </div>
+    </div>`
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = x
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
 
 {% endblock %}

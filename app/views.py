@@ -4,18 +4,18 @@ from .models import Location, Car, Customer
 def landingview(request):
     return render(request, 'landingpage.html')
 
-def locationlistview(request):
-    return render(request, 'locationlist.html')
+# def locationlistview(request):
+#     return render(request, 'locationlist.html')
 
-def carlistview(request):
-    return render(request, 'carlist.html')
+# def carlistview(request):
+#     return render(request, 'carlist.html')
 
-def customerlistview(request):
-    return render(request, 'customerlist.html')
+# def customerlistview(request):
+#     return render(request, 'customerlist.html')
 
 
 
-# Product view´s
+# Location view´s
 
 def locationlistview(request):
     locationlist = Location.objects.all()
@@ -27,9 +27,8 @@ def addlocation(request):
     a = request.POST['city']
     b = request.POST['postalcode']
     c = request.POST['country']
-    e = request.POST['car']
     
-    Location(city = a, postalcode = b, country = c, car = Car.objects.get(id = e)).save()
+    Location(city = a, postalcode = b, country = c).save()
     return redirect(request.META['HTTP_REFERER'])
 
 
@@ -57,6 +56,12 @@ def edit_location_post(request, id):
         item.save()
         return redirect(locationlistview)
 
+def searchlocations(request):
+    search = request.POST['search']
+    filtered = Location.objects.filter(city__icontains=search)
+    context = {'locations': filtered}
+    return render (request,"locationlist.html",context)
+
 def locations_filtered(request, id):
     locationlist = Location.objects.all()
     filteredlocations = locationlist.filter(car = id)
@@ -64,7 +69,7 @@ def locations_filtered(request, id):
     return render (request,"locationlist.html",context)
 
 
-# Supplier view´s
+# Cars view´s
 def carlistview(request):
     carlist = Car.objects.all()
     context = {'cars': carlist}
@@ -76,7 +81,7 @@ def addcar(request):
     c = request.POST['year']
     d = request.POST['gear']
     e = request.POST['price']
-    f = request.POST['city']
+
     Car(carname = a, model = b, year = c, gear = d, price = e).save()
     return redirect(request.META['HTTP_REFERER'])
     
@@ -97,20 +102,36 @@ def searchcars(request):
     context = {'cars': filtered}
     return render (request,"carlist.html",context)
 
+def edit_car_get(request, id):
+        car = Car.objects.get(id = id)
+        context = {'car': car}
+        return render (request,"edit_car.html",context)
 
-# Supplier view´s
+
+def edit_car_post(request, id):
+        item = Car.objects.get(id = id)
+        item.carname = request.POST['carname']
+        item.model = request.POST['model']
+        item.price = request.POST['price']
+        item.save()
+        return redirect(carlistview)
+
+
+# Customer view´s
 def customerlistview(request):
     customerlist = Customer.objects.all()
-    context = {'customers': customerlist}
+    carlist = Car.objects.all()
+    context = {'customers': customerlist, 'cars': carlist}
     return render (request,"customerlist.html",context)
 
 def addcust(request):
-    a = request.POST['name']
+    a = request.POST['customername']
     b = request.POST['adress']
     c = request.POST['phone']
     d = request.POST['mail']
     e = request.POST['car']
-    Customer(name = a, adress = b, phone = c, mail = d, car = e).save()
+
+    Customer(customername = a, adress = b, phone = c, mail = d, car = Car.objects.get(id = e)).save()
     return redirect(request.META['HTTP_REFERER'])
     
 
@@ -123,3 +144,16 @@ def confirmdeletecustomer(request, id):
 def deletecust(request, id):
     Customer.objects.get(id = id).delete()
     return redirect(customerlistview)
+
+def edit_customer_get(request, id):
+        customer = Customer.objects.get(id = id)
+        context = {'customer': customer}
+        return render (request,"edit_customer.html",context)
+
+
+def edit_customer_post(request, id):
+        item = Customer.objects.get(id = id)
+        item.customername = request.POST['customername']
+        item.adress = request.POST['adress']
+        item.save()
+        return redirect(customerlistview)

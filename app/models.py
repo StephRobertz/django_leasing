@@ -15,7 +15,7 @@ class Car(models.Model):
     model = models.CharField(max_length = 50, default="")
     year = models.CharField(max_length = 4, default="")
     gear = models.CharField(max_length = 100, default= "")
-    price = models.CharField(max_length = 50, default=" $ per day")
+    price = models.CharField(max_length = 50, default=" $ /day")
    
     # ao:n voi tehdä jos haluaa että admin sivu toimii myöhemmässä vaiheessa paremmin,
     # mutta se ei ole välttämätöntä alussa
