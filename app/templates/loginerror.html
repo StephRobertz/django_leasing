@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Car Leasing</title>
+    <title>Products and vendors</title>
 
     <meta charset="UTF-8">
 
@@ -17,9 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-
 
 </head>
 
@@ -27,19 +24,18 @@
     <div class="container">
         <center>
 
-            <div class="btn-group" role="group">
-                
-                <a class="btn" href="/locations">Manage locations</a>
-                <a class="btn" href="/cars">Manage cars</a>
-                <a class="btn" href="/customers">Manage customers</a>
-                <a class="btn" href="/admin">Admin pages</a>
-                <a class="btn">Logout</a>
+            <div class="card" style="width: 25rem; margin-top: 50px;">
+                <div class="card-header">
+
+                    <h4>Wrong credentials</h4>
+
+                    <div class="card-body">
+                        <input type="button" onclick="window.location.href='/'" id="hide-btn"
+                            class="btn btn-secondary btn-sm" value="Try again">
+
+                    </div>
+                </div>
             </div>
-
-            {% block content %}
-
-            {% endblock %}
-
         </center>
     </div>
 

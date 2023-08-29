@@ -6,7 +6,7 @@
 <div id="add-div"></div>
 <br />
 
-<h1 style="color: darkviolet">Locations</h1>
+<h1 >Locations</h1>
 
 <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Add new location</button>
 
@@ -24,8 +24,8 @@
 <div class="card" style="width: 50rem;">
     <div class="card-body">
         <h4 class="card-title">{{l.city}}</h4>
-        <p class="card-text">postcode: {{l.postalcode}}</p>
-        <p class="card-text">country: {{l.country}} </p>
+        <p class="card-text">Postcode: {{l.postalcode}}</p>
+        <p class="card-text">Country: {{l.country}} </p>
 
         <a href="/edit-location-get/{{l.id}}/" class="btn btn-primary">Edit</a>
         <a href="/confirm-delete-location/{{l.id}}/" class="btn btn-danger">Delete</a>

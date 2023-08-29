@@ -1,0 +1,13 @@
+h1{
+    color: rgb(147, 130, 61);
+}
+.btn-group .btn{
+background-color: rgba(17, 18, 18, 0.871);
+color: aliceblue;
+margin: 3px;
+}
+
+.btn-group .btn:hover{
+    background-color: rgb(74, 77, 77);
+    
+    }

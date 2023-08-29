@@ -6,7 +6,7 @@
 <div id="add-div"></div>
 <br />
 
-<h1 style="color: darkviolet">Customers</h1>
+<h1>Customers</h1>
 
 <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Add new customer</button>
 
@@ -25,7 +25,7 @@
     <div class="card-body">
         <h4 class="card-title">{{cu.customername}}</h4>
         <h5 class="card-text">Car: {{cu.car.carname}}</h5>
-        <p class="card-text">adress: {{cu.adress}} | phone: {{cu.phone}} | mail: {{cu.mail}} </p>
+        <p class="card-text">Adress: {{cu.adress}} | Phone: {{cu.phone}} | Mail: {{cu.mail}} </p>
         
 
         <a href="/edit-customer-get/{{cu.id}}/" class="btn btn-primary">Edit</a>
@@ -54,7 +54,7 @@
             <form method="post" action="/add-customer/">
     
                 {% csrf_token %}
-                <input class="card-text" class="card-text" type="text" placeholder="customer´s name" name="customername">
+                <input class="card-text" class="card-text" type="text" placeholder="name" name="customername">
                 <input class="card-text" type="text" placeholder="adress" name="adress">
                 <input class="card-text" type="text" placeholder="phone" name="phone">
                 <input class="card-text" type="text" placeholder="mail" name="mail">

@@ -1,14 +1,19 @@
 from django.urls import path
 
-from app.views import landingview
-from .views import landingview, locationlistview, carlistview, customerlistview, addlocation
+
+from .views import locationlistview, carlistview, customerlistview, addlocation
 from .views import confirmdeletelocation, edit_location_get, edit_location_post
 from .views import addcar, deletecar, confirmdeletecar, searchcars, addcust, deletecust
 from .views import confirmdeletecustomer, deletelocation, locations_filtered, edit_customer_get, edit_customer_post
-from .views import edit_car_post, edit_car_get, searchlocations
+from .views import edit_car_post, edit_car_get, searchlocations, loginview, login_action, logout_action
 
 urlpatterns = [
-    path('', landingview),
+    # path('', landingview),
+
+    # Login & logout
+    path('', loginview),
+    path('login/', login_action),
+    path('logout/', logout_action),
 
     # Location url´s
     path('locations/', locationlistview),

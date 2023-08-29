@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Location, Car, Customer
+from django.contrib.auth import authenticate, login, logout
 
-def landingview(request):
-    return render(request, 'landingpage.html')
+# def landingview(request):
+#     return render(request, 'landingpage.html')
 
 # def locationlistview(request):
 #     return render(request, 'locationlist.html')
@@ -12,6 +13,37 @@ def landingview(request):
 
 # def customerlistview(request):
 #     return render(request, 'customerlist.html')
+
+# Loginpage
+def loginview(request):
+    return render (request, "loginpage.html")
+
+
+# Login action
+def login_action(request):
+    user = request.POST['username']
+    passw = request.POST['password']
+    # Löytyykö kyseistä käyttäjää?
+    user = authenticate(username = user, password = passw)
+    #Jos löytyy:
+    if user:
+        # Kirjataan sisään
+        login(request, user)
+        # Tervehdystä varten context
+        context = {'name': user.first_name}
+        # Kutsutaan suoraan landingview.html
+        return render(request,'landingpage.html',context)
+    # Jos ei kyseistä käyttäjää löydy
+    else:
+        return render(request, 'loginerror.html')
+
+
+# Logout action
+def logout_action(request):
+    logout(request)
+    return render(request, 'loginpage.html')
+
+
 
 
 
@@ -70,6 +102,7 @@ def locations_filtered(request, id):
 
 
 # Cars view´s
+   
 def carlistview(request):
     carlist = Car.objects.all()
     context = {'cars': carlist}
