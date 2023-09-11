@@ -8,7 +8,7 @@ class Location(models.Model):
     # ao:n voi tehdä jos haluaa että admin sivu toimii myöhemmässä vaiheessa paremmin,
     # mutta se ei ole välttämätöntä alussa
     def __str__(self):
-        return f"{self.city} , {self.country}"
+       return f"{self.city} , {self.country}"
     
 class Car(models.Model):
     carname= models.CharField(max_length = 50, default="")
@@ -20,7 +20,7 @@ class Car(models.Model):
     # ao:n voi tehdä jos haluaa että admin sivu toimii myöhemmässä vaiheessa paremmin,
     # mutta se ei ole välttämätöntä alussa
     def __str__(self):
-        return f"{self.carname} , {self.price}"
+       return f"{self.carname} , {self.price}"
     
 
 class Customer(models.Model):
@@ -28,8 +28,8 @@ class Customer(models.Model):
     adress = models.CharField(max_length = 50, default = "")
     phone = models.CharField(max_length=50, default= "")
     mail = models.CharField(max_length= 50, default = "@gmail.com")
-    #car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
      # ao:n voi tehdä jos haluaa että admin sivu toimii myöhemmässä vaiheessa hienommin,
      # mutta se ei ole välttämätöntä alussa
     def __str__(self):
-        return f"{self.customername} ,call mobile on {self.phone}"
+       return f"{self.customername} ,call mobile on {self.phone}"
